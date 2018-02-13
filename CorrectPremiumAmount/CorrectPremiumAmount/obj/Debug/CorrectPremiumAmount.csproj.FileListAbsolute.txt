@@ -1,0 +1,6 @@
+c:\users\vichayas.rstower\documents\visual studio 2012\Projects\CorrectPremiumAmount\CorrectPremiumAmount\bin\Debug\CorrectPremiumAmount.exe.config
+c:\users\vichayas.rstower\documents\visual studio 2012\Projects\CorrectPremiumAmount\CorrectPremiumAmount\bin\Debug\CorrectPremiumAmount.exe
+c:\users\vichayas.rstower\documents\visual studio 2012\Projects\CorrectPremiumAmount\CorrectPremiumAmount\bin\Debug\CorrectPremiumAmount.pdb
+c:\users\vichayas.rstower\documents\visual studio 2012\Projects\CorrectPremiumAmount\CorrectPremiumAmount\obj\Debug\CorrectPremiumAmount.csprojResolveAssemblyReference.cache
+c:\users\vichayas.rstower\documents\visual studio 2012\Projects\CorrectPremiumAmount\CorrectPremiumAmount\obj\Debug\CorrectPremiumAmount.exe
+c:\users\vichayas.rstower\documents\visual studio 2012\Projects\CorrectPremiumAmount\CorrectPremiumAmount\obj\Debug\CorrectPremiumAmount.pdb
