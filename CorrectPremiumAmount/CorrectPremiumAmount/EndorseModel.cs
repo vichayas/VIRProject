@@ -17,27 +17,43 @@ namespace CorrectPremiumAmount
         public int AuctualEndorseSeq { get; set; }
         public int CurrPolicyEndSeq { get; set; }
 
-        public double PreviousPolicyPremiumBeforeFee { get; set; }
-        public double PreviousPolicyDuty { get; set; }
+        public decimal PreviousPolicyPremiumBeforeFee { get; set; }
+        public decimal PreviousPolicyDuty { get; set; }
 
+        public string PolicyAgreementId { get; set; }
         public string InAppItemIdforDel { get; set; }
         public string InAppItemIdforAdd { get; set; }
 
-        public PremiumModel ActualPremium = new PremiumModel();
-        public PremiumModel ExpectPremium = new PremiumModel();
+        public PremiumModel ActualPremiumForPolicy = new PremiumModel();
+        public PremiumModel ExpectedPremiumForPolicy = new PremiumModel();
+        public PremiumModel ActualPremiumForEndorsement = new PremiumModel();
+        public PremiumModel ExpectedPremiumForEndorsement = new PremiumModel();
         public PremiumModel ActualPremiumForDel = new PremiumModel();
         public PremiumModel ActualPremiumForAdd = new PremiumModel();
-        public PremiumModel ExpectPremiumForDel = new PremiumModel();
-        public PremiumModel ExpectPremiumForAdd = new PremiumModel();
+        public PremiumModel ExpectedPremiumForDel = new PremiumModel();
+        public PremiumModel ExpectedPremiumForAdd = new PremiumModel();
 
         public bool IsAdding { get; set; }
         public bool IsDeleting { get; set; }
+        public bool HaveOrtherTypeEnd { get; set; }
 
         public EndorseModel(string polNo, string apeNo, string endNo)
         {
             this.PolicyNumber = polNo;
             this.APENumber    = apeNo;
             this.ENDNumber    = endNo;
+        }
+
+        public EndorseModel(string apeNo)
+        {
+            this.APENumber = apeNo;
+        }
+
+        public void InitialPremium(PremiumModel premium, string premiumBeforeFee, string duty, string premiumAfterFee)
+        {
+            premium.PremiumBeforeFee = premiumBeforeFee;
+            premium.PremiumAfterFee = premiumAfterFee;
+            premium.Duty = duty;
         }
 
     }

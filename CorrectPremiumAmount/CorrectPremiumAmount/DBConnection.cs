@@ -41,7 +41,7 @@ namespace CorrectPremiumAmount
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@PolicyNo", SqlDbType.Xml).Value = polNo;
+                    cmd.Parameters.Add("@PolicyNo", SqlDbType.VarChar).Value = polNo;
                     cmd.Parameters.Add("@AppEndosNo", SqlDbType.VarChar).Value = apeNo;
                     OpenConnection();
                     reader = cmd.ExecuteReader();

@@ -4,3 +4,16 @@ c:\users\vichayas.rstower\documents\visual studio 2012\Projects\CorrectPremiumAm
 c:\users\vichayas.rstower\documents\visual studio 2012\Projects\CorrectPremiumAmount\CorrectPremiumAmount\obj\Debug\CorrectPremiumAmount.csprojResolveAssemblyReference.cache
 c:\users\vichayas.rstower\documents\visual studio 2012\Projects\CorrectPremiumAmount\CorrectPremiumAmount\obj\Debug\CorrectPremiumAmount.exe
 c:\users\vichayas.rstower\documents\visual studio 2012\Projects\CorrectPremiumAmount\CorrectPremiumAmount\obj\Debug\CorrectPremiumAmount.pdb
+C:\Users\infinite01\Desktop\CorrectPremiumAmount\CorrectPremiumAmount\bin\Debug\CorrectPremiumAmount.exe.config
+C:\Users\infinite01\Desktop\CorrectPremiumAmount\CorrectPremiumAmount\obj\Debug\CorrectPremiumAmount.exe
+C:\Users\infinite01\Desktop\CorrectPremiumAmount\CorrectPremiumAmount\obj\Debug\CorrectPremiumAmount.pdb
+C:\Users\infinite01\Desktop\CorrectPremiumAmount\CorrectPremiumAmount\bin\Debug\CorrectPremiumAmount.exe
+C:\Users\infinite01\Desktop\CorrectPremiumAmount\CorrectPremiumAmount\bin\Debug\CorrectPremiumAmount.pdb
+C:\Users\infinite01\Desktop\CorrectPremiumAmount\CorrectPremiumAmount\obj\Debug\CorrectPremiumAmount.csprojResolveAssemblyReference.cache
+C:\Git\Project\CorrectPremiumAmount\CorrectPremiumAmount\bin\Debug\CorrectPremiumAmount.exe.config
+C:\Git\Project\CorrectPremiumAmount\CorrectPremiumAmount\bin\Debug\CorrectPremiumAmount.exe
+C:\Git\Project\CorrectPremiumAmount\CorrectPremiumAmount\bin\Debug\CorrectPremiumAmount.pdb
+C:\Git\Project\CorrectPremiumAmount\CorrectPremiumAmount\obj\Debug\CorrectPremiumAmount.csprojResolveAssemblyReference.cache
+C:\Git\Project\CorrectPremiumAmount\CorrectPremiumAmount\obj\Debug\CorrectPremiumAmount.csproj.CoreCompileInputs.cache
+C:\Git\Project\CorrectPremiumAmount\CorrectPremiumAmount\obj\Debug\CorrectPremiumAmount.exe
+C:\Git\Project\CorrectPremiumAmount\CorrectPremiumAmount\obj\Debug\CorrectPremiumAmount.pdb
