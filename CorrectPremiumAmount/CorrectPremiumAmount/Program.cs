@@ -24,13 +24,14 @@ namespace CorrectPremiumAmount
             //var VISconn = new DbConnection("Server='VISHQDB';Database=VIS_DB;User=vissa;Password=visdbpassword;MultipleActiveResultSets=True");
          
            // string polNo = "17181/POL/000017-563";
-            string apeNo = "18181/APE/000029-574";
+            string apeNo = "17181/APE/000254-563";
             //string endNo = "17181/END/000055-563";
 
             string addingInsuredTypeGUID = "A446F001-873E-4439-9397-9D95609143B5";
             string deletingInsuredTypeGUID = "C59823FA-4ADF-439B-A281-D7E759CAE307";
+            string changeingCoverageInsuredTypeGUID = "4B6F241B-3D35-4555-A394-40E0B563831F";
 
-           // var objEndModel = new EndorseModel(polNo, apeNo, endNo);
+            // var objEndModel = new EndorseModel(polNo, apeNo, endNo);
             var objEndModel = new EndorseModel(apeNo);
             FindEndorsementAndPolicyNumber(apeNo, VISconn, objEndModel);
 
@@ -39,8 +40,9 @@ namespace CorrectPremiumAmount
                               "END    Number : {2}\n\n", objEndModel.PolicyNumber, objEndModel.APENumber, objEndModel.ENDNumber);
             //objEndModel.InitialPremium(objEndModel.ExpectedPremiumForEndorsement, "235047.22", "941", "235988.22");
             //objEndModel.InitialPremium(objEndModel.ExpectedPremiumForEndorsement, "16163.64", "65", "16228.64");
-            objEndModel.InitialPremium(objEndModel.ExpectedPremiumForAdd, "3508.66", "15", "3523.66");
-            objEndModel.InitialPremium(objEndModel.ExpectedPremiumForDel, "-21618.24", "0", "-21618.24");
+            objEndModel.InitialPremium(objEndModel.ExpectedPremiumForAdd, "25970.27", "104", "26074.27");
+            //objEndModel.InitialPremium(objEndModel.ExpectedPremiumForDel, "-59767.38", "0", "-59767.38");
+            //objEndModel.InitialPremium(objEndModel.ExpectedPremiumForEditCoverage, "132713.12", "531", "133244.12");
             //Console.Write("Confirm? (Y/N): ");
             //var result = Console.ReadLine();
             var result = "Y";
@@ -49,7 +51,7 @@ namespace CorrectPremiumAmount
 
                 FindEndorseSequence(VISconn, objEndModel);
                 FindPreviousEndPremiumAndDuty(VISconn, objEndModel);
-                CheckTypesOfThisEndorsement(VISconn, objEndModel, addingInsuredTypeGUID, deletingInsuredTypeGUID);
+                CheckTypesOfThisEndorsement(VISconn, objEndModel, addingInsuredTypeGUID, deletingInsuredTypeGUID, changeingCoverageInsuredTypeGUID);
                 // 1. Update premium amount of insured that was added
 
                 if (objEndModel.IsAdding)
@@ -71,6 +73,12 @@ namespace CorrectPremiumAmount
                         Console.WriteLine("\n==============\n Can't update the premium of insured who are deleted from the policy!\n b/c the last endorse is not the current endorse \n========================");
                     }
                 }
+                if(objEndModel.IsChanging)
+                {
+                    UpdateInAppItem(VISconn, objEndModel.ExpectedPremiumForEditCoverage, objEndModel.InAppItemIdforChanged);
+                }
+
+
                 CallPremiumEndorse(objEndModel);
                 if (!String.IsNullOrEmpty(objEndModel.ExpectedPremiumForEndorsement.PremiumBeforeFee))
                 {
@@ -392,6 +400,12 @@ namespace CorrectPremiumAmount
 
             objEndModel.ExpectedPremiumForEndorsement.PremiumBeforeFee = (objEndModel.ExpectedPremiumForAdd.PremiumBeforeFee.ToDecimal() +
                                                                             objEndModel.ExpectedPremiumForDel.PremiumBeforeFee.ToDecimal()).ToString();
+
+            if (objEndModel.ExpectedPremiumForEditCoverage != null)
+            {
+                objEndModel.ExpectedPremiumForEndorsement.PremiumBeforeFee = (objEndModel.ExpectedPremiumForEndorsement.PremiumBeforeFee.ToDecimal() +
+                                                                            objEndModel.ExpectedPremiumForEditCoverage.PremiumBeforeFee.ToDecimal()).ToString();
+            }
             var duty = (Math.Floor(objEndModel.ExpectedPremiumForEndorsement.PremiumBeforeFee.ToDecimal() * (0.4M / 100)))+1;
             objEndModel.ExpectedPremiumForEndorsement.Duty = (duty < 0) ? "0" : duty.ToString();
            objEndModel.ExpectedPremiumForEndorsement.PremiumAfterFee = (objEndModel.ExpectedPremiumForEndorsement.PremiumBeforeFee.ToDecimal() + objEndModel.ExpectedPremiumForEndorsement.Duty.ToDecimal()).ToString();
@@ -422,7 +436,7 @@ namespace CorrectPremiumAmount
             visConn.CloseConnection();
         }
 
-        private static void CheckTypesOfThisEndorsement(DbConnection visConn, EndorseModel endorseModel, string addingInsuredTypeGuid, string deletingInsuredTypeGuid)
+        private static void CheckTypesOfThisEndorsement(DbConnection visConn, EndorseModel endorseModel, string addingInsuredTypeGuid, string deletingInsuredTypeGuid, string changeingCoverageInsuredTypeGUID)
         {
             var query = "select InsuranceApplicationItem.Id, InsuranceApplicationItem.TotalBeforeFee,InsuranceApplicationItem.TotalDuty,InsuranceApplicationItem.TotalAfterFee,ApplicantEndorsementItem.EndorsementType_Id from Agreement inner join ApplicantEndorsementItem on Agreement.Id = ApplicantEndorsementItem.ApplicantEndorsement_Id inner join InsuranceApplicationItem on ApplicantEndorsementItem.InsuranceApplication_Id = InsuranceApplicationItem.InsuranceApplication_Id where Agreement.ReferenceNumber= '" + endorseModel.APENumber + "' and InsuranceApplicationItem.InsuranceApplicationItemType_Id='213F8708-FCC2-4430-A804-A1D115F718C5'";
             var reader = visConn.ExecutrQueryReader(query);
@@ -451,6 +465,12 @@ namespace CorrectPremiumAmount
                     endorseModel.ActualPremiumForDel.Duty = reader["TotalDuty"].ToString();
                     endorseModel.InAppItemIdforDel = reader["Id"].ToString();
                     output +=  "Have => Deleting Insured Endorsement\n";
+                }
+                else if (reader["EndorsementType_Id"].ToString() == changeingCoverageInsuredTypeGUID.ToLower())
+                {
+                    endorseModel.IsChanging = true;
+                    endorseModel.InAppItemIdforChanged = reader["Id"].ToString();
+                    output += "Have => Changeing Coverage Insured Endorsement\n";
                 }
                 else
                 {

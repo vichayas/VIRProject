@@ -23,6 +23,7 @@ namespace CorrectPremiumAmount
         public string PolicyAgreementId { get; set; }
         public string InAppItemIdforDel { get; set; }
         public string InAppItemIdforAdd { get; set; }
+        public string InAppItemIdforChanged { get; set; }
 
         public PremiumModel ActualPremiumForPolicy = new PremiumModel();
         public PremiumModel ExpectedPremiumForPolicy = new PremiumModel();
@@ -32,9 +33,11 @@ namespace CorrectPremiumAmount
         public PremiumModel ActualPremiumForAdd = new PremiumModel();
         public PremiumModel ExpectedPremiumForDel = new PremiumModel();
         public PremiumModel ExpectedPremiumForAdd = new PremiumModel();
+        public PremiumModel ExpectedPremiumForEditCoverage = new PremiumModel();
 
         public bool IsAdding { get; set; }
         public bool IsDeleting { get; set; }
+        public bool IsChanging { get; set; }
         public bool HaveOrtherTypeEnd { get; set; }
 
         public EndorseModel(string polNo, string apeNo, string endNo)
