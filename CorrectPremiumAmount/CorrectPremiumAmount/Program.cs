@@ -24,7 +24,7 @@ namespace CorrectPremiumAmount
             //var VISconn = new DbConnection("Server='VISHQDB';Database=VIS_DB;User=vissa;Password=visdbpassword;MultipleActiveResultSets=True");
          
            // string polNo = "17181/POL/000017-563";
-            string apeNo = "17181/APE/000254-563";
+            string apeNo = "18181/APE/000027-563";
             //string endNo = "17181/END/000055-563";
 
             string addingInsuredTypeGUID = "A446F001-873E-4439-9397-9D95609143B5";
@@ -40,8 +40,8 @@ namespace CorrectPremiumAmount
                               "END    Number : {2}\n\n", objEndModel.PolicyNumber, objEndModel.APENumber, objEndModel.ENDNumber);
             //objEndModel.InitialPremium(objEndModel.ExpectedPremiumForEndorsement, "235047.22", "941", "235988.22");
             //objEndModel.InitialPremium(objEndModel.ExpectedPremiumForEndorsement, "16163.64", "65", "16228.64");
-            objEndModel.InitialPremium(objEndModel.ExpectedPremiumForAdd, "25970.27", "104", "26074.27");
-            //objEndModel.InitialPremium(objEndModel.ExpectedPremiumForDel, "-59767.38", "0", "-59767.38");
+            //objEndModel.InitialPremium(objEndModel.ExpectedPremiumForAdd, "2398.68", "10", "2408.68");
+            objEndModel.InitialPremium(objEndModel.ExpectedPremiumForDel, "-2880.00", "0", "-2880.00");
             //objEndModel.InitialPremium(objEndModel.ExpectedPremiumForEditCoverage, "132713.12", "531", "133244.12");
             //Console.Write("Confirm? (Y/N): ");
             //var result = Console.ReadLine();
